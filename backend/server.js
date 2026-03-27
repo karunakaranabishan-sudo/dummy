@@ -34,7 +34,12 @@ app.use('/api/authorities', authorityRoutes);
 app.use('/api/complaints', reportRoutes);
 app.use('/api/notifications', notificationRoutes);
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Conditional listen for local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+// Export the app for Vercel serverless functions
+export default app;
